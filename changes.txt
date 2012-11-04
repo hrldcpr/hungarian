@@ -1,0 +1,3 @@
+2008-06-26: merged Bill Baxter's numpy support, N D van Foreest's example code, released 0.2
+2005-11-08: changed README.txt, setup.py, added changes.txt, version 0.1.1 released
+2004-09-02: version 0.1 (unreleased)
