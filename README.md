@@ -8,12 +8,16 @@ If you have any problems with this module, you should contact me, not Mr. Battre
 
 
 To build this module run:
-> python setup.py build
+
+    > python setup.py build
+
 Then you can either put the file build/lib-<YOUR-PLATFORM>/hungarian.so in the same directory as the code that will be using it, or you can install it so that all of your python programs can see it:
-> python setup.py install
+
+    > python setup.py install
 
 For the module's documentation, type at a Python prompt:
->>> help('hungarian')
+
+    >>> help('hungarian')
 
 
 Additional Information:
