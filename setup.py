@@ -9,7 +9,7 @@ if __name__ == "__main__":
     setup(configuration=configuration,
           name='hungarian',
           version='0.2.1',
-          url='http://github.com/hrldcpr/hungarian'
+          url='http://github.com/hrldcpr/hungarian',
           download_url='http://github.com/hrldcpr/hungarian/archive/v0.2.1.tar.gz',
           description='algorithm for the linear assignment problem',
           long_description=
