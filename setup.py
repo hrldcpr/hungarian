@@ -10,7 +10,6 @@ if __name__ == "__main__":
           name='hungarian',
           version='0.2.1',
           url='http://github.com/hrldcpr/hungarian',
-          download_url='http://github.com/hrldcpr/hungarian/archive/v0.2.1.tar.gz',
           description='algorithm for the linear assignment problem',
           long_description=
 """This module is just a simple wrapper for a C++ implementation of Knuth's
