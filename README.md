@@ -1,6 +1,6 @@
 This module is just a simple wrapper for a C++ implementation of Knuth's Hungarian algorithm, a.k.a. Munkres' algorithm, for the linear assignment problem.
 
-It has not been updated since 2008, so may need some changes &mdash; pull requests are welcome!
+**It has not been updated since 2008, so may need some changes &mdash; pull requests are welcome!**
 
 Note that this module depends on the numpy module. You must install numpy before you can compile this module. Numpy can be downloaded from http://numpy.scipy.org
 
