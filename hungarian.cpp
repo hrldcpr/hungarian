@@ -18,6 +18,7 @@ hungarian(PyObject *self, PyObject *args)
 	long *rowsol;
 	long *colsol;
 	cost *buf,**ccosts;
+        npy_intp *strides;
 
     if (!PyArg_ParseTuple(args, "O", &ocosts))
         return NULL;
@@ -42,7 +43,7 @@ hungarian(PyObject *self, PyObject *args)
     buf = (cost*)PyArray_DATA(costs);
 	
 	//copy inputted matrix into a 2-dimensional C array:
-    npy_intp *strides = PyArray_STRIDES(costs);
+    strides = PyArray_STRIDES(costs);
     assert(strides[1] == sizeof(cost));
 	ccosts = (cost **)malloc(sizeof(cost *)*n);
 	if(!ccosts)
