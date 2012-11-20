@@ -15,6 +15,7 @@ hungarian(PyObject *self, PyObject *args)
   PyObject *ocosts;
   PyArrayObject *costs;
   int n;
+  npy_intp n2;
   long *rowsol;
   long *colsol;
   cost *buf,**ccosts;
@@ -33,6 +34,7 @@ hungarian(PyObject *self, PyObject *args)
       goto error;
     }
   n = costs->dimensions[0];
+  n2 = costs->dimensions[0];
   if (costs->dimensions[1]!=n)
     {
       PyErr_SetString(PyExc_ValueError,"lap() requires a square matrix");
@@ -71,8 +73,8 @@ hungarian(PyObject *self, PyObject *args)
   return Py_BuildValue("(OO)",
                        //NA_NewArray(rowsol,tInt32,1,n),
                        //NA_NewArray(colsol,tInt32,1,n)
-                       PyArray_SimpleNewFromData(1,(npy_intp*)&n,NPY_INT,rowsol),
-                       PyArray_SimpleNewFromData(1,(npy_intp*)&n,NPY_INT,colsol)
+                       PyArray_SimpleNewFromData(1,&n2,NPY_INT,rowsol),
+                       PyArray_SimpleNewFromData(1,&n2,NPY_INT,colsol)
                        );
  error:
   Py_XDECREF(costs);
