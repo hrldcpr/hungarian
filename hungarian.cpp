@@ -15,10 +15,13 @@ hungarian(PyObject *self, PyObject *args)
   PyObject *ocosts;
   PyArrayObject *costs;
   int n;
+  npy_intp n2;
   long *rowsol;
   long *colsol;
   cost *buf,**ccosts;
   npy_intp *strides;
+  PyObject * rowo;
+  PyObject * colo;
 
   if (!PyArg_ParseTuple(args, "O", &ocosts))
     return NULL;
@@ -33,6 +36,7 @@ hungarian(PyObject *self, PyObject *args)
       goto error;
     }
   n = costs->dimensions[0];
+  n2 = costs->dimensions[0];
   if (costs->dimensions[1]!=n)
     {
       PyErr_SetString(PyExc_ValueError,"lap() requires a square matrix");
@@ -49,16 +53,21 @@ hungarian(PyObject *self, PyObject *args)
   if(!ccosts)
     {
       PyErr_NoMemory();
+      free(ccosts);
       goto error;
     }
   for(int i=0;i<n;i++)
     ccosts[i] = buf+i*(strides[0]/sizeof(cost));
 
-  rowsol = (long *)malloc(sizeof(long)*n);
-  colsol = (long *)malloc(sizeof(long)*n);
+  //allocate data for the output array
+  rowo = PyArray_SimpleNew(1, &n2, NPY_LONG);
+  colo = PyArray_SimpleNew(1, &n2, NPY_LONG);
+  rowsol = (long *) PyArray_DATA(rowo);
+  colsol = (long *) PyArray_DATA(colo);
   if(!(rowsol&&colsol))
     {
       PyErr_NoMemory();
+      free(ccosts);
       goto error;
     }
 
@@ -68,11 +77,9 @@ hungarian(PyObject *self, PyObject *args)
   //NA_InputArray() incremented costs, but now we're done with it, so let it get GC'ed:
   Py_XDECREF(costs);
 
-  return Py_BuildValue("(OO)",
-                       //NA_NewArray(rowsol,tInt32,1,n),
-                       //NA_NewArray(colsol,tInt32,1,n)
-                       PyArray_SimpleNewFromData(1,(npy_intp*)&n,NPY_INT,rowsol),
-                       PyArray_SimpleNewFromData(1,(npy_intp*)&n,NPY_INT,colsol)
+  free(ccosts);
+  return Py_BuildValue("(NN)",
+                       rowo, colo
                        );
  error:
   Py_XDECREF(costs);
