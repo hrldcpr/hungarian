@@ -51,6 +51,7 @@ hungarian(PyObject *self, PyObject *args)
   if(!ccosts)
     {
       PyErr_NoMemory();
+      free(ccosts);
       goto error;
     }
   for(int i=0;i<n;i++)
@@ -61,6 +62,7 @@ hungarian(PyObject *self, PyObject *args)
   if(!(rowsol&&colsol))
     {
       PyErr_NoMemory();
+      free(ccosts);
       goto error;
     }
 
@@ -70,6 +72,7 @@ hungarian(PyObject *self, PyObject *args)
   //NA_InputArray() incremented costs, but now we're done with it, so let it get GC'ed:
   Py_XDECREF(costs);
 
+  free(ccosts);
   return Py_BuildValue("(OO)",
                        //NA_NewArray(rowsol,tInt32,1,n),
                        //NA_NewArray(colsol,tInt32,1,n)
