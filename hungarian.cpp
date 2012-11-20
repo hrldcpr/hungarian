@@ -20,6 +20,8 @@ hungarian(PyObject *self, PyObject *args)
   long *colsol;
   cost *buf,**ccosts;
   npy_intp *strides;
+  PyObject * rowo;
+  PyObject * colo;
 
   if (!PyArg_ParseTuple(args, "O", &ocosts))
     return NULL;
@@ -57,8 +59,11 @@ hungarian(PyObject *self, PyObject *args)
   for(int i=0;i<n;i++)
     ccosts[i] = buf+i*(strides[0]/sizeof(cost));
 
-  rowsol = (long *)malloc(sizeof(long)*n);
-  colsol = (long *)malloc(sizeof(long)*n);
+  //allocate data for the output array
+  rowo = PyArray_SimpleNew(1, &n2, NPY_LONG);
+  colo = PyArray_SimpleNew(1, &n2, NPY_LONG);
+  rowsol = (long *) PyArray_DATA(rowo);
+  colsol = (long *) PyArray_DATA(colo);
   if(!(rowsol&&colsol))
     {
       PyErr_NoMemory();
@@ -73,11 +78,8 @@ hungarian(PyObject *self, PyObject *args)
   Py_XDECREF(costs);
 
   free(ccosts);
-  return Py_BuildValue("(OO)",
-                       //NA_NewArray(rowsol,tInt32,1,n),
-                       //NA_NewArray(colsol,tInt32,1,n)
-                       PyArray_SimpleNewFromData(1,&n2,NPY_INT,rowsol),
-                       PyArray_SimpleNewFromData(1,&n2,NPY_INT,colsol)
+  return Py_BuildValue("(NN)",
+                       rowo, colo
                        );
  error:
   Py_XDECREF(costs);
