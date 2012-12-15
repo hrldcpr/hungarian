@@ -8,7 +8,7 @@ if __name__ == "__main__":
     from numpy.distutils.core import setup
     setup(configuration=configuration,
           name='hungarian',
-          version='0.2.1',
+          version='0.2.2',
           url='http://github.com/hrldcpr/hungarian',
           description='algorithm for the linear assignment problem',
           long_description=
