@@ -19,4 +19,3 @@ problem.""",
           maintainer='Harold Cooper',
           maintainer_email='hrldcpr@gmail.com'
           )
-
