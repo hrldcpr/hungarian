@@ -123,7 +123,13 @@ inithungarian(void)
 int main(int argc, char *argv[])
 {
   /* Pass argv[0] to the Python interpreter */
+#if PY_MAJOR_VERSION >= 3
   Py_SetProgramName((wchar_t*)argv[0]);
+
+#else
+  Py_SetProgramName(argv[0]);
+
+#endif
 
   /* Initialize the Python interpreter.  Required. */
   Py_Initialize();
