@@ -8,6 +8,7 @@ The cost matrix is based on Balas and Toth, 1985, Branch and bound
 # methods, in Lawler, E.L, et al., The TSP, John Wiley & Sons,
 Chischester, pp 361--401.
 """
+from __future__ import print_function
 
 import numpy
 import hungarian
@@ -23,5 +24,7 @@ a = numpy.array( [[inf,2,11,10,8,7,6,5],
                   [10,11,12,10,9,12,inf,3],
                   [10,10,10,10,6,3,1,inf]] )
 
-print  hungarian.lap(a)[0]
+answer = hungarian.lap(a)[0]
+print(answer)
+assert(numpy.array_equal([1, 2, 0, 4, 5, 3, 7, 6], answer))
 
