@@ -24,7 +24,19 @@ a = numpy.array( [[inf,2,11,10,8,7,6,5],
                   [10,11,12,10,9,12,inf,3],
                   [10,10,10,10,6,3,1,inf]] )
 
-answer = hungarian.lap(a)[0]
-print(answer)
-assert(numpy.array_equal([1, 2, 0, 4, 5, 3, 7, 6], answer))
+answers = hungarian.lap(a)
+print('For each row, matching column index:', answers[0])
+assert(numpy.array_equal([1, 2, 0, 4, 5, 3, 7, 6], answers[0]))
+points0 = list(zip(range(len(answers[0])), answers[0]))
+print('Matching pairs, sorted by row:', points0)
 
+print('For each column, matching row index:', answers[1])
+assert(numpy.array_equal([2, 0, 1, 5, 3, 4, 7, 6], answers[1]))
+points1 = list(zip(answers[1], range(len(answers[1]))))
+print('Matching pairs, sorted by col:', points1)
+
+sum0 = sum(a[range(len(answers[0])), answers[0]])
+sum1 = sum(a[answers[1], range(len(answers[1]))])
+print('Cost of match:', sum1)
+assert(sum0 == 17)
+assert(sum1 == 17)
