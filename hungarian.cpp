@@ -86,30 +86,62 @@ hungarian(PyObject *self, PyObject *args)
   return NULL;
 }
 
+static char module_docstring[] = "Solves the linear assignment problem using the Hungarian\nalgorithm.\n\nhungarian() takes a single argument - a square cost matrix - and returns a\ntuple of the form\n(row_assigns,col_assigns).";
+
 static PyMethodDef HungarianMethods[] = {
   {"lap",  hungarian, METH_VARARGS,
-   "Solves the linear assignment problem using the Hungarian\nalgorithm.\n\nhungarian() takes a single argument - a square cost matrix - and returns a\ntuple of the form\n(row_assigns,col_assigns)."},
+   module_docstring},
   {NULL, NULL, 0, NULL}        /* Sentinel (terminates structure) */
 };
 
+#if PY_MAJOR_VERSION >= 3
+
+static struct PyModuleDef Hungarian = 
+{
+    PyModuleDef_HEAD_INIT,
+    "hungarian",
+    module_docstring,
+    -1,
+    HungarianMethods
+};
+
+PyMODINIT_FUNC PyInit_hungarian(void) 
+{
+    import_array();
+    return PyModule_Create(&Hungarian);
+}
+
+#else
 PyMODINIT_FUNC
 inithungarian(void)
 {
   (void) Py_InitModule("hungarian", HungarianMethods);
   import_array();
 }
+#endif
 
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
   /* Pass argv[0] to the Python interpreter */
+#if PY_MAJOR_VERSION >= 3
+  Py_SetProgramName((wchar_t*)argv[0]);
+
+#else
   Py_SetProgramName(argv[0]);
+
+#endif
 
   /* Initialize the Python interpreter.  Required. */
   Py_Initialize();
 
   /* Add a static module */
+#if PY_MAJOR_VERSION >= 3
+  PyInit_hungarian();
+  
+#else
   inithungarian();
+
+#endif
 
   return 0;
 }
