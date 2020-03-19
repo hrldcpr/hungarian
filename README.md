@@ -1,3 +1,10 @@
+**This is an outdated package**
+
+Consider using [scipy.optimize.linear_sum_assignment](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linear_sum_assignment.html) instead.
+
+
+## Previous documentation
+
 This module is just a simple wrapper for a C++ implementation of Knuth's Hungarian algorithm, a.k.a. Munkres' algorithm, for the linear assignment problem.
 
 For a faster, but less tolerant, LAP algorithm see http://github.com/hrldcpr/pyLAPJV
