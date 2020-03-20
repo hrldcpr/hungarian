@@ -3,7 +3,8 @@
 Consider using [scipy.optimize.linear_sum_assignment](https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linear_sum_assignment.html) instead.
 
 
-## Previous documentation
+#
+*For posterity:*
 
 This module is just a simple wrapper for a C++ implementation of Knuth's Hungarian algorithm, a.k.a. Munkres' algorithm, for the linear assignment problem.
 
